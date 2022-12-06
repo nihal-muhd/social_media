@@ -9,7 +9,7 @@ const FolloweresCard = () => {
       <h3>People you may know </h3>
       {Followers.map((follower,id)=>{
         return(
-            <div className="follower">
+            <div className="follower" key={id}>
                 <div>
                     <img src={follower.img} alt="" className='follwerImg' />
                     <div className="name">

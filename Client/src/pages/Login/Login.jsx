@@ -56,7 +56,7 @@ function LoginForm() {
         if (cookies.jwt || user) {
             navigate('/')
         }
-    }, [user])
+    }, [])
 
     return (
         <div className="auth-right">
@@ -75,7 +75,7 @@ function LoginForm() {
                 <div>
                     <Link to='/signup'>    <span style={{ fontSize: '12px' }}>Don't have an account?</span> </Link>
                 </div>
-                {loading ? <SpinnerIcon pulse style={{ fontSize: '2em' }}/> : <button className='button infoButton' type='submit'>Login</button>}
+                {loading ? <SpinnerIcon pulse style={{ fontSize: '2em' }} /> : <button className='button infoButton' type='submit'>Login</button>}
 
             </form>
         </div>

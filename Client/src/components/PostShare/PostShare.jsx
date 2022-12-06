@@ -3,9 +3,9 @@ import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } fr
 import ProfileImg from '../../img/profileImg.jpg'
 import { useSelector } from 'react-redux'
 import axiosImage from '../../instance/imageUpload'
-import './PostShare.css'
 import SpinnerIcon from '@rsuite/icons/legacy/Spinner';
 import axios from 'axios'
+import './PostShare.css'
 
 
 
@@ -40,18 +40,19 @@ const PostShare = () => {
             data.append("file", image)
             data.append("upload_preset", "weshare_images")
             axiosImage.post('/image/upload', data).then((res) => {
-                console.log(res, "hi")
                 newPost.imageUrl = res.data.secure_url
                 axios.post('http://localhost:5000/post-upload', newPost, { withCredentials: true })
                 setImage(null)
                 setLoading(false)
+                desc.current.value = ""
             })
 
         } else {
             axios.post('http://localhost:5000/post-upload', newPost, { withCredentials: true })
             setLoading(false)
+            desc.current.value = ""
         }
-        desc.current.value = ""
+       
 
     }
 

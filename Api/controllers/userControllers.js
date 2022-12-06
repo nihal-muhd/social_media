@@ -90,16 +90,44 @@ module.exports.postUpload = async (req, res, next) => {
     try {
         const postData = req.body
         await PostModel.create(postData)
-
     } catch (error) {
-
+        console.log(error)
     }
 }
 
 module.exports.getPost = async (req, res, next) => {
     try {
-
+        const post = await PostModel.find().sort({ createdAt: -1 })
+        res.status(201).json({ post })
     } catch (error) {
+        console.log(error)
+    }
+}
 
+module.exports.likePost = async (req, res, next) => {
+    try {
+        const postID = req.body.postId
+        const userID = req.body.userId
+        await PostModel.updateOne({ _id: postID }, {
+            $push: {
+                likes: userID
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports.unlikePost = async (req, res, next) => {
+    try {
+        const postID = req.body.postId
+        const userID = req.body.userId
+        await PostModel.updateOne({ _id: postID }, {
+            $pull: {
+                likes: userID
+            }
+        })
+    } catch (error) {
+        console.log(error)
     }
 }

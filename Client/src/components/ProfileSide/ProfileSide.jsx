@@ -8,7 +8,7 @@ const ProfileSIde = () => {
   return (
     <div className='ProfileSide'>
      <LogoSearch/>
-     <ProfileCard/>
+     <ProfileCard location="homepage"/>
      <FolloweresCard/>
     </div>
   )

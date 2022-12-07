@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
-import ProfileImg from '../../img/profileImg.jpg'
+import ProfileImg from '../../img/defaultProfile.png'
 import { useSelector } from 'react-redux'
 import axiosImage from '../../instance/imageUpload'
 import SpinnerIcon from '@rsuite/icons/legacy/Spinner';
@@ -58,7 +58,7 @@ const PostShare = () => {
 
     return (
         <div className='PostShare'>
-            <img src={ProfileImg} alt="" />
+            <img src={user.profilePicture ? user.profilePicture : ProfileImg} alt="" />
             <div>
                 <input type="text" placeholder='Write something here...' ref={desc} required />
                 <div className="postOptions">

@@ -33,21 +33,27 @@ const InfoCard = () => {
             </div>
             <div className="info">
                 <span>
-                    <b>Status </b>
+                    <b>Went to </b>
                 </span>
-                <span>single</span>
+                <span>GVHSS MEPPAYUR</span>
             </div>
             <div className="info">
                 <span>
                     <b>Lives in </b>
                 </span>
-                <span>Calicut</span>
+                <span>calicut</span>
             </div>
             <div className="info">
                 <span>
-                    <b>works at </b>
+                    <b>Workes @ </b>
                 </span>
                 <span>Brototype</span>
+            </div>
+            <div className="info">
+                <span>
+                    <b>status </b>
+                </span>
+                <span>Single</span>
             </div>
 
             <button className='button logout-button' onClick={Logout}>Logout</button>

@@ -13,16 +13,13 @@ const Post = ({ data }) => {
 
     const [liked, setLiked] = useState(data.likes.includes(user.Id))
     const [likes, setLikes] = useState(data.likes.length)
-    console.log(liked, "initial");
+
     const handleLike = async () => {
-        
         setLiked((prev) => !prev)
         if (!liked) {
-            console.log(liked, "first");
             axios.post('http://localhost:5000/like-post', { postId: data._id, userId: user.Id }, { withCredentials: true })
             setLikes((prev) => prev + 1)
         } else {
-            console.log(liked, "second");
             axios.post('http://localhost:5000/unlike-post', { postId: data._id, userId: user.Id }, { withCredentials: true })
             setLikes((prev) => prev - 1)
         }

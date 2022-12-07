@@ -59,7 +59,6 @@ module.exports.login = async (req, res, next) => {
         const maxAge = 60 * 60 * 24;
         const { email, password } = req.body;
         const user = await UserModel.findOne({ email: email })
-
         if (user) {
             if (user.Active) {
                 const passwordCheck = await bcrypt.compare(password, user.password)
@@ -70,7 +69,7 @@ module.exports.login = async (req, res, next) => {
                         httpOnly: false,
                         maxAge: maxAge * 1000
                     })
-                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile })
+                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture })
                 } else {
                     res.status(401).json({ status: 'inavalid password' })
                 }
@@ -129,5 +128,21 @@ module.exports.unlikePost = async (req, res, next) => {
         })
     } catch (error) {
         console.log(error)
+    }
+}
+
+module.exports.updateProfile = async (req, res, next) => {
+    try {
+        console.log(req.body, "profile url")
+        const profileURL = req.body.profileData.profileurl
+        const userId = req.body.profileData.userId
+        await UserModel.updateOne({ _id: userId }, {
+            $set: {
+                profilePicture: profileURL
+            }
+        })
+        res.status(201).json({ profilePicture: profileURL })
+    } catch (error) {
+
     }
 }

@@ -1,7 +1,14 @@
 import { Modal, useMantineTheme } from '@mantine/core';
+import { useState } from 'react'
 
-function ProfileModal({modalOpen,setModalOpen}) {
+function ProfileModal({ modalOpen, setModalOpen }) {
     const theme = useMantineTheme();
+
+    const [fromData,setFormData]=useState({education:'',worksAt:'',city:'',relation_status:''})
+
+    
+
+
 
     return (
         <Modal
@@ -11,23 +18,23 @@ function ProfileModal({modalOpen,setModalOpen}) {
             size='55%'
             // opened is a property of modal. Here when our state modalOpen is true this modal will open.
             opened={modalOpen}
-            onClose={()=>setModalOpen(false)}
+            onClose={() => setModalOpen(false)}
         >
             <form className="infoForm">
                 <h3>Your Info</h3>
                 <div>
-                <input type="text" className="infoInput" name='name' placeholder='full name'/>
+                    <input type="text" className="infoInput" name='education' placeholder='Your Education' />
+                    <input type="text" className="infoInput" name='worksAt' placeholder='works @ ' />
                 </div>
                 <div>
-                    <input type="text" className="infoInput" name='worksAt' placeholder='works at '/>
-                    <input type="text" className="infoInput" name='city' placeholder='lives in '/>
-                    <input type="text" className="infoInput" name='relation_status' placeholder='status'/>
+                    <input type="text" className="infoInput" name='city' placeholder='city ' />
+                    <input type="text" className="infoInput" name='relation_status' placeholder='relationship status' />
                 </div>
                 <div>
                     Profile Image
-                    <input type="file"  name='profileImage' />
+                    <input type="file" name='profileImage' />
                     coverImage
-                    <input type="file"  name='coverImage' />
+                    <input type="file" name='coverImage' />
                 </div>
 
                 <button className='button infoButton'>Update</button>

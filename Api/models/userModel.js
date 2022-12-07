@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please provide mobile number'],
         unique: true
     },
+    profilePicture: {
+        type: String
+    },
     password: {
         type: String,
         required: [true, 'Please provide password']

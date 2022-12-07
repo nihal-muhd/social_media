@@ -7,6 +7,8 @@ export const userLogin = createAsyncThunk('user/userLogin', async (formData) => 
     return res
 })
 
+
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -40,7 +42,7 @@ const userSlice = createSlice({
             state.rejected = true
             state.loading = false
 
-        }
+        },
     }
 
 })

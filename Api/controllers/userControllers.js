@@ -4,6 +4,17 @@ const twilioController = require('../controllers/twilioControllers')
 const jwt = require('jsonwebtoken')
 const PostModel = require('../models/postModel')
 
+const getUser = async (token) => {
+    try {
+        const jwtToken = jwt.verify(token, process.env.TOKEN_KEY)
+        const userID = jwtToken.userId
+        const user = await UserModel.findOne({ _id: userID })
+        return user
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 module.exports.signup = async (req, res, next) => {
     try {
         const userVerify = await UserModel.findOne({
@@ -69,7 +80,7 @@ module.exports.login = async (req, res, next) => {
                         httpOnly: false,
                         maxAge: maxAge * 1000
                     })
-                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture })
+                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture })
                 } else {
                     res.status(401).json({ status: 'inavalid password' })
                 }
@@ -80,6 +91,15 @@ module.exports.login = async (req, res, next) => {
         } else {
             res.status(401).json({ status: 'inavalid email' })
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports.getUserData = async (req, res, next) => {
+    try {
+        const user = await getUser(req.cookies.jwt)
+        res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture })
     } catch (error) {
         console.log(error)
     }
@@ -133,7 +153,6 @@ module.exports.unlikePost = async (req, res, next) => {
 
 module.exports.updateProfile = async (req, res, next) => {
     try {
-        console.log(req.body, "profile url")
         const profileURL = req.body.profileData.profileurl
         const userId = req.body.profileData.userId
         await UserModel.updateOne({ _id: userId }, {
@@ -141,7 +160,23 @@ module.exports.updateProfile = async (req, res, next) => {
                 profilePicture: profileURL
             }
         })
-        res.status(201).json({ profilePicture: profileURL })
+        res.status(201).json({ status: 'success' })
+    } catch (error) {
+
+    }
+}
+
+module.exports.updateCover = async (req, res, next) => {
+    try {
+        console.log("hii")
+        const coverURL = req.body.profileData.coverurl
+        const userId = req.body.profileData.userId
+        await UserModel.updateOne({ _id: userId }, {
+            $set: {
+                coverPicture: coverURL
+            }
+        })
+        res.status(201).json({ status: 'success' })
     } catch (error) {
 
     }

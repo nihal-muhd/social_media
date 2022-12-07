@@ -7,6 +7,12 @@ export const userLogin = createAsyncThunk('user/userLogin', async (formData) => 
     return res
 })
 
+export const getUserData = createAsyncThunk('user/userData', async () => {
+    const res = await axios.get('http://localhost:5000/getUserData', { withCredentials: true })
+    res.data.loggedIn = true
+    console.log(res.data);
+    return res
+})
 
 
 const userSlice = createSlice({
@@ -43,6 +49,23 @@ const userSlice = createSlice({
             state.loading = false
 
         },
+        [getUserData.pending]: (state, action) => {
+            console.log("loading");
+            state.loading = true
+
+        },
+        [getUserData.fulfilled]: (state, action) => {
+            console.log(action.payload.data)
+            state.user = action.payload.data
+            state.fulfilled = true
+            state.loading = false
+        },
+        [getUserData.rejected]: (state, action) => {
+            console.log("rejected")
+            state.rejected = true
+            state.loading = false
+
+        }
     }
 
 })

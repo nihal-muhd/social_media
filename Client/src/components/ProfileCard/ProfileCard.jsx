@@ -46,7 +46,24 @@ const ProfileCard = ({ location }) => {
         axiosImage.post('/image/upload', data).then((res) => {
             profileData.profileurl = res.data.secure_url
             axios.post('http://localhost:5000/profile-picture', { profileData }, { withCredentials: true })
-            setProfilePic(null)
+            setCoverPic(null)
+        })
+
+    }
+
+    const shareCover = () => {
+        const profileData = {
+            userId: user.Id,
+        }
+        const data = new FormData()
+        const filename = Date.now() + coverPic.name
+        data.append("name", filename)
+        data.append("file", coverPic)
+        data.append("upload_preset", "weshare_images")
+        axiosImage.post('/image/upload', data).then((res) => {
+            profileData.coverurl = res.data.secure_url
+            axios.post('http://localhost:5000/cover-picture', { profileData }, { withCredentials: true })
+            setCoverPic(null)
         })
 
     }
@@ -60,7 +77,7 @@ const ProfileCard = ({ location }) => {
                 <input type="file" name='cover' ref={coverRef} onChange={handleCover} />
             </div>
             <div className="ProfieImages">
-                <img src={user.coverPicture ? user.coverPicture : cover} alt="" style={{ cursor: 'pointer' }} onClick={() => coverRef.current.click()} />
+                <img src={user.cover ? user.cover : cover} alt="" style={{ cursor: 'pointer' }} onClick={() => coverRef.current.click()} />
                 <img src={user.profile ? user.profile : profile} alt="" style={{ cursor: 'pointer' }} onClick={() => profileRef.current.click()} />
             </div>
 
@@ -76,7 +93,7 @@ const ProfileCard = ({ location }) => {
                 <div className="previewImage">
                     <UilTimes onClick={() => setCoverPic(null)} />
                     <img src={URL.createObjectURL(coverPic)} alt="" />
-                    <button className='button infoButton' >share</button>
+                    <button className='button infoButton' onClick={shareCover}>share</button>
                 </div>
             )}
             <div className="ProfileName">

@@ -8,10 +8,10 @@ import './Posts.css'
 import { useSelector } from 'react-redux'
 
 
-const Posts = () => {
+const Posts = ({ location }) => {
     const { user } = useSelector((state) => state.user)
     const userId = user.Id
-    console.log(userId, "hiii");
+  
 
     const [post, setPost] = useState()
 
@@ -22,7 +22,12 @@ const Posts = () => {
             setPost(posts.data.post)
         }
         getPost()
-    }, [])
+    }, [userId])
+
+    const handleDelete=async(postId)=>{
+        console.log(postId);
+        const dltPost = await axios.post('http://localhost:5000/delete-post', { postId }, { withCredentials: true })
+    }
 
 
 
@@ -32,9 +37,14 @@ const Posts = () => {
     return (
         <div className='Posts'>
 
-            {post?.map((post, id) => {
-                return <Post key={id} data={post} id={id} />
-            })}
+            {location === 'profilepage' ?
+                post?.map((post, id) => {
+                    return <Post key={id} data={post} id={id} location='profilepage' handleDelete={handleDelete} />
+                }) :
+                post?.map((post, id) => {
+                    return <Post key={id} data={post} id={id}  />
+                })
+            }
         </div>
     )
 }

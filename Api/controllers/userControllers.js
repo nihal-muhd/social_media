@@ -144,7 +144,7 @@ module.exports.getPost = async (req, res, next) => {
                 }
             }
 
-        ]).sort({createdAt:-1})
+        ]).sort({ createdAt: -1 })
         res.status(201).json({ post })
     } catch (error) {
         console.log(error)
@@ -224,6 +224,16 @@ module.exports.updateInfo = async (req, res, next) => {
             }
         })
         res.status(201).json({ status: 'success' })
+    } catch (error) {
+
+    }
+}
+
+module.exports.deletePost = async (req, res, next) => {
+    try {
+        console.log(req.body, "bllalal");
+        const postId = req.body.postId
+        await PostModel.deleteOne({ _id: postId })
     } catch (error) {
 
     }

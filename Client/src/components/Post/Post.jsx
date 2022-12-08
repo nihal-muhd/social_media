@@ -7,8 +7,9 @@ import { useState } from 'react'
 import './Post.css'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import TrashIcon from '@rsuite/icons/Trash';
 
-const Post = ({ data }) => {
+const Post = ({ data, location, handleDelete}) => {
     const { user } = useSelector((state) => state.user)
 
     const [liked, setLiked] = useState(data.likes.includes(user.Id))
@@ -25,9 +26,13 @@ const Post = ({ data }) => {
         }
     }
 
+    // const handleDelete = async (postId) => {
+    //     const dltPost = await axios.post('http://localhost:5000/delete-post', { postId }, { withCredentials: true })
+    // }
 
     return (
         <div className='Post'>
+            {location === 'profilepage' ? <TrashIcon style={{ cursor: "pointer" }} onClick={() => { handleDelete(data._id) }} /> : ''}
             <img src={data.imageUrl} alt="" />
 
 
@@ -36,6 +41,7 @@ const Post = ({ data }) => {
                 <img src={Comment} alt="" />
                 <img src={Share} alt="" />
             </div>
+
 
             <span style={{ color: "var(--gray)", fontSize: "12px" }}>{likes} likes</span>
             <div className="detail">

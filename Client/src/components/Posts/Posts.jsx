@@ -5,17 +5,20 @@ import { useState } from 'react'
 import Post from '../Post/Post'
 import SpinnerIcon from '@rsuite/icons/legacy/Spinner';
 import './Posts.css'
+import { useSelector } from 'react-redux'
 
 
 const Posts = () => {
+    const { user } = useSelector((state) => state.user)
+    const userId = user.Id
+    console.log(userId, "hiii");
+
     const [post, setPost] = useState()
 
- 
-
     useEffect(() => {
-       
+
         async function getPost() {
-           const   posts = await axios.get('http://localhost:5000/get-post', { withCredentials: true })
+            const posts = await axios.post('http://localhost:5000/get-post', { userId }, { withCredentials: true })
             setPost(posts.data.post)
         }
         getPost()

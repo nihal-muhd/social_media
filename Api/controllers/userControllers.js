@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const twilioController = require('../controllers/twilioControllers')
 const jwt = require('jsonwebtoken')
 const PostModel = require('../models/postModel')
+const mongoose = require('mongoose')
 
 const getUser = async (token) => {
     try {
@@ -44,7 +45,6 @@ module.exports.signup = async (req, res, next) => {
 module.exports.verifyUser = async (req, res, next) => {
     try {
         let result = await twilioController.otpVerify(req.body.otp, req.body.userData.mobile)
-        console.log(result, "verification")
         if (result) {
             const userData = req.body.userData
             const salt = await bcrypt.genSalt(10);
@@ -116,7 +116,11 @@ module.exports.postUpload = async (req, res, next) => {
 
 module.exports.getPost = async (req, res, next) => {
     try {
+        const userId = req.body.userId
         const post = await PostModel.aggregate([
+            {
+                $match: { userId: mongoose.mongo.ObjectId(userId) }
+            },
             {
                 $lookup: {
                     from: 'users',
@@ -140,8 +144,7 @@ module.exports.getPost = async (req, res, next) => {
                 }
             }
 
-        ])
-        console.log(post, "post hi")
+        ]).sort({createdAt:-1})
         res.status(201).json({ post })
     } catch (error) {
         console.log(error)

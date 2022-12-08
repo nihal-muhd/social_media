@@ -36,25 +36,25 @@ const InfoCard = () => {
                 <span>
                     <b>Went to </b>
                 </span>
-                <span>{user.education ? user.education : ''}</span>
+                <span>{user.education ? user.education : '......'}</span>
             </div>
             <div className="info">
                 <span>
                     <b>Lives in </b>
                 </span>
-                <span>{user.city ? user.city : ''} </span>
+                <span>{user.city ? user.city : '......'} </span>
             </div>
             <div className="info">
                 <span>
                     <b>Works @ </b>
                 </span>
-                <span>{user.worksAt ? user.worksAt : ''} </span>
+                <span>{user.worksAt ? user.worksAt : '......'} </span>
             </div>
             <div className="info">
                 <span>
                     <b>status </b>
                 </span>
-                <span>{user.relation_status ? user.relation_status : ''}</span>
+                <span>{user.relation_status ? user.relation_status : '......'}</span>
             </div>
 
             <button className='button logout-button' onClick={Logout}>Logout</button>

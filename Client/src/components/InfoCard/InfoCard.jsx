@@ -3,7 +3,7 @@ import { UilPen } from '@iconscout/react-unicons'
 import { useState } from 'react'
 import ProfileModal from '../../components/ProfileModal/ProfileModal'
 import { useCookies } from 'react-cookie';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../redux/userSlice';
 import './InfoCard.css'
@@ -12,6 +12,7 @@ const InfoCard = () => {
     const navigate = useNavigate()
     const [cookie, setCookie, removeCookie] = useCookies([])
     const dispatch = useDispatch()
+    const { user } = useSelector((state) => state.user)
 
     const [modalOpen, setModalOpen] = useState(false)
 
@@ -35,25 +36,25 @@ const InfoCard = () => {
                 <span>
                     <b>Went to </b>
                 </span>
-                <span>GVHSS MEPPAYUR</span>
+                <span>{user.education ? user.education : ''}</span>
             </div>
             <div className="info">
                 <span>
                     <b>Lives in </b>
                 </span>
-                <span>calicut</span>
+                <span>{user.city ? user.city : ''} </span>
             </div>
             <div className="info">
                 <span>
-                    <b>Workes @ </b>
+                    <b>Works @ </b>
                 </span>
-                <span>Brototype</span>
+                <span>{user.worksAt ? user.worksAt : ''} </span>
             </div>
             <div className="info">
                 <span>
                     <b>status </b>
                 </span>
-                <span>Single</span>
+                <span>{user.relation_status ? user.relation_status : ''}</span>
             </div>
 
             <button className='button logout-button' onClick={Logout}>Logout</button>

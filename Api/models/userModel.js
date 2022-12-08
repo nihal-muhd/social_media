@@ -21,6 +21,18 @@ const userSchema = new mongoose.Schema({
     coverPicture: {
         type: String
     },
+    education: {
+        type: String
+    },
+    worksAt: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    relation_status: {
+        type: String
+    },
     password: {
         type: String,
         required: [true, 'Please provide password']

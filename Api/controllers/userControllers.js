@@ -99,7 +99,7 @@ module.exports.login = async (req, res, next) => {
 module.exports.getUserData = async (req, res, next) => {
     try {
         const user = await getUser(req.cookies.jwt)
-        res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture })
+        res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status })
     } catch (error) {
         console.log(error)
     }
@@ -174,6 +174,25 @@ module.exports.updateCover = async (req, res, next) => {
         await UserModel.updateOne({ _id: userId }, {
             $set: {
                 coverPicture: coverURL
+            }
+        })
+        res.status(201).json({ status: 'success' })
+    } catch (error) {
+
+    }
+}
+
+module.exports.updateInfo = async (req, res, next) => {
+    try {
+        const info = req.body.formData
+        const userId = req.body.userId
+        await UserModel.updateOne({ _id: userId }, {
+            $set: {
+                name: info.name,
+                education: info.education,
+                worksAt: info.worksAt,
+                city: info.city,
+                relation_status: info.relation_status
             }
         })
         res.status(201).json({ status: 'success' })

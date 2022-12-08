@@ -13,8 +13,9 @@ const Posts = () => {
  
 
     useEffect(() => {
+       
         async function getPost() {
-            const posts = await axios.get('http://localhost:5000/get-post', { withCredentials: true })
+           const   posts = await axios.get('http://localhost:5000/get-post', { withCredentials: true })
             setPost(posts.data.post)
         }
         getPost()

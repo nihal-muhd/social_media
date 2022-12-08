@@ -39,7 +39,7 @@ const Post = ({ data }) => {
 
             <span style={{ color: "var(--gray)", fontSize: "12px" }}>{likes} likes</span>
             <div className="detail">
-                <span><b>{data.name}</b></span>
+                <span><b>{data.user_name}</b></span>
                 <span> {data.desc}</span>
             </div>
 

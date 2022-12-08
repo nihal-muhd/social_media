@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const postSchema = mongoose.Schema({
     userId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: [true, 'provide user id of post owner']
     },
     desc: String,

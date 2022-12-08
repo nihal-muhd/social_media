@@ -116,7 +116,32 @@ module.exports.postUpload = async (req, res, next) => {
 
 module.exports.getPost = async (req, res, next) => {
     try {
-        const post = await PostModel.find().sort({ createdAt: -1 })
+        const post = await PostModel.aggregate([
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'result'
+                }
+            },
+            {
+                $unwind: "$result"
+            },
+            {
+                $project: {
+                    _id: 1,
+                    userId: 1,
+                    desc: 1,
+                    likes: 1,
+                    imageUrl: 1,
+                    createdAt: 1,
+                    user_name: '$result.name'
+                }
+            }
+
+        ])
+        console.log(post, "post hi")
         res.status(201).json({ post })
     } catch (error) {
         console.log(error)

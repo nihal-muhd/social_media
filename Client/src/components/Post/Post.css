@@ -17,3 +17,21 @@
     align-items: flex-start;
     gap: 1.5rem;
 }
+
+.input-div{
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.comment-input{
+    box-sizing: border-box;
+    width: 100%;
+}
+.input-div>span{
+    position: absolute;
+    right: 18px;
+    top: 14px;
+    cursor: pointer;
+    font-size: 20px;
+}

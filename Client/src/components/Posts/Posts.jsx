@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 const Posts = ({ location }) => {
     const { user } = useSelector((state) => state.user)
     const userId = user.Id
-  
+
 
     const [post, setPost] = useState()
 
@@ -24,10 +24,15 @@ const Posts = ({ location }) => {
         getPost()
     }, [userId])
 
-    const handleDelete=async(postId)=>{
+    const handleDelete = async (postId) => {
         console.log(postId);
-        const dltPost = await axios.post('http://localhost:5000/delete-post', { postId }, { withCredentials: true })
+        await axios.post('http://localhost:5000/delete-post', { postId }, { withCredentials: true })
     }
+
+    // const handleComment = async (postId, userId, comment) => {
+    //     console.log(postId, userId, comment,"moorr");
+    // }
+
 
 
 
@@ -42,7 +47,7 @@ const Posts = ({ location }) => {
                     return <Post key={id} data={post} id={id} location='profilepage' handleDelete={handleDelete} />
                 }) :
                 post?.map((post, id) => {
-                    return <Post key={id} data={post} id={id}  />
+                    return <Post key={id} data={post} id={id} />
                 })
             }
         </div>

@@ -140,7 +140,8 @@ module.exports.getPost = async (req, res, next) => {
                     likes: 1,
                     imageUrl: 1,
                     createdAt: 1,
-                    user_name: '$result.name'
+                    user_name: '$result.name',
+                    comments:1
                 }
             }
 
@@ -231,9 +232,26 @@ module.exports.updateInfo = async (req, res, next) => {
 
 module.exports.deletePost = async (req, res, next) => {
     try {
-        console.log(req.body, "bllalal");
         const postId = req.body.postId
         await PostModel.deleteOne({ _id: postId })
+    } catch (error) {
+
+    }
+}
+
+module.exports.commentPost = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        const postId = req.body.postId
+        const comments = {
+            username: req.body.username,
+            comment: req.body.comment
+        }
+        await PostModel.updateOne({ _id: postId }, {
+            $push: {
+                comments
+            }
+        })
     } catch (error) {
 
     }

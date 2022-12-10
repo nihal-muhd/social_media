@@ -141,7 +141,7 @@ module.exports.getPost = async (req, res, next) => {
                     imageUrl: 1,
                     createdAt: 1,
                     user_name: '$result.name',
-                    comments:1
+                    comments: 1
                 }
             }
 
@@ -252,6 +252,16 @@ module.exports.commentPost = async (req, res, next) => {
                 comments
             }
         })
+    } catch (error) {
+
+    }
+}
+
+module.exports.getUsers = async (req, res, next) => {
+    try {
+        const users = await UserModel.find()
+        console.log(users);
+        res.status(201).json({ users })
     } catch (error) {
 
     }

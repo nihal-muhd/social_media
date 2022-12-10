@@ -31,13 +31,12 @@ const Post = ({ data, location, handleDelete }) => {
 
     const handleComment = (postId, username, comment) => {
 
-        console.log(postId, username, comment, "hahahhah");
         axios.post('http://localhost:5000/comment-post', { postId, username, comment }, { withCredentials: true })
         setShowComment(false)
     }
 
 
-    console.log(data, "post");
+
     return (
         <div className='Post'>
             {location === 'profilepage' ? <TrashIcon style={{ cursor: "pointer", alignSelf: 'flex-end' }} onClick={() => { handleDelete(data._id) }} /> : ''}
@@ -55,8 +54,8 @@ const Post = ({ data, location, handleDelete }) => {
             {data?.comments && data?.comments?.map((val, id) => {
                 return (
                     <div className='comment-section' key={id}>
-                        <span style={{ color: 'gray' }}><b>{val.username}</b></span>
-                        <span> {val.comment}</span>
+                        <span style={{ color: 'gray',fontSize:'12px' }}><b>{val.username}</b></span>
+                        <span style={{fontSize:'12px'}}> {val.comment}</span>
                     </div>
                 )
 

@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { signup, verifyUser, login, getUserData, postUpload, getPost, likePost, unlikePost, updateProfile, updateCover, updateInfo, deletePost, commentPost } = require('../controllers/userControllers')
+const { signup, verifyUser, login, getUserData, postUpload, getPost, likePost, unlikePost, updateProfile, updateCover, updateInfo, deletePost, commentPost, getUsers } = require('../controllers/userControllers')
+
+router.get('/getUserData', getUserData)
+router.get('/get-users', getUsers)
 
 router.post('/signup', signup)
 router.post('/verify-user', verifyUser)
 router.post('/login', login)
-router.get('/getUserData', getUserData)
 router.post('/post-upload', postUpload)
 router.post('/get-post', getPost)
 router.post('/like-post', likePost)

@@ -266,3 +266,15 @@ module.exports.getUsers = async (req, res, next) => {
 
     }
 }
+
+module.exports.followUser = async (req, res, next) => {
+    console.log(req.body)
+    const user = await getUser(req.cookies.jwt)
+    console.log(user);
+    const followUserId=req.body.userId
+    await UserModel.updateOne({_id:user._id},{
+        $push:{
+            followers:followUserId
+        }
+    })
+}

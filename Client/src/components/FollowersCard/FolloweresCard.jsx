@@ -16,12 +16,17 @@ const FolloweresCard = () => {
       const res = await axios.get('http://localhost:5000/get-users', { withCredentials: true })
       const userList = res.data.users
       console.log(userList, "mens are here");
-      setUsers(userList.filter((val) =>val._id!==user.Id))
+      setUsers(userList.filter((val) => val._id !== user.Id))
     }
     getUsers()
   }, [])
 
-  console.log(users,"this is state")
+  const handleFollow = (userId) => {
+    console.log(userId, "follow request");
+    axios.post('http://localhost:5000/follow-users', { userId }, { withCredentials: true })
+  }
+
+  console.log(users, "this is state")
   return (
     <div className='FollowersCard'>
       <h3>People you may know </h3>
@@ -29,13 +34,13 @@ const FolloweresCard = () => {
         return (
           <div className="follower" key={id}>
             <div>
-              <img src={follower.profilePicture?follower.profilePicture:profile} alt="" className='follwerImg' />
+              <img src={follower.profilePicture ? follower.profilePicture : profile} alt="" className='follwerImg' />
               <div className="name">
                 <span>{follower.name}</span>
                 <span>@{follower.name}</span>
               </div>
             </div>
-            <button className='button fc-button'>
+            <button className='button fc-button' onClick={() => { handleFollow(follower._id) }}>
               Follow
             </button>
           </div>

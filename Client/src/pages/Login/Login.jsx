@@ -73,7 +73,7 @@ function LoginForm() {
                 </div>
                 {error && <p style={{ color: 'red' }} className='error-form'>{error}</p>}
                 <div>
-                    <Link to='/signup'>    <span style={{ fontSize: '12px' }}>Don't have an account?</span> </Link>
+                    <Link to='/signup' style={{textDecoration: "none", color: "inherit"}}>    <span style={{ fontSize: '12px' }}>Don't have an account?</span> </Link>
                 </div>
                 {loading ? <SpinnerIcon pulse style={{ fontSize: '2em' }} /> : <button className='button infoButton' type='submit'>Login</button>}
 

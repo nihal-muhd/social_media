@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { signup, verifyUser, login, getUserData, postUpload, getPost, likePost, unlikePost, updateProfile, updateCover, updateInfo, deletePost, commentPost, getUsers } = require('../controllers/userControllers')
+const { signup, verifyUser, login, getUserData, postUpload, getPost, likePost, unlikePost, updateProfile, updateCover, updateInfo, deletePost, commentPost, getUsers,followUser } = require('../controllers/userControllers')
 
 router.get('/getUserData', getUserData)
 router.get('/get-users', getUsers)
@@ -17,5 +17,6 @@ router.post('/cover-picture', updateCover)
 router.post('/info-update', updateInfo)
 router.post('/delete-post', deletePost)
 router.post('/comment-post', commentPost)
+router.post('/follow-users',followUser)
 
 module.exports = router

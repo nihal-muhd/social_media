@@ -78,7 +78,7 @@ function SignupForm() {
                 </div>
                 {error && <p style={{ color: 'red' }} className='error-form'>{error}</p>}
                 <div>
-                    <Link to='/login'>     <span style={{ fontSize: '12px' }} onClick={() => navigate('/login')}>Already have account?</span></Link>
+                    <Link to='/login' style={{textDecoration: "none", color: "inherit"}}>     <span style={{ fontSize: '12px' }} onClick={() => navigate('/login')}>Already have account?</span></Link>
                 </div>
                 <button className='button infoButton' type='submit'>Signup</button>
             </form>

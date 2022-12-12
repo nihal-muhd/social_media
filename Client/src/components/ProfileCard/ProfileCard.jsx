@@ -109,7 +109,7 @@ const ProfileCard = ({ location }) => {
                     </div>
                     <div className="vl"></div>
                     <div className="follow">
-                        <span>{user.followers ? user.followers : 0}</span>
+                        <span>{user.followerss ? user.followerss : 0}</span>
                         <span>Followers</span>
                     </div>
                     {location === 'profilepage' && (

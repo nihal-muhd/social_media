@@ -22,11 +22,13 @@ const FolloweresCard = () => {
   }, [])
 
   const handleFollow = (userId) => {
-    console.log(userId, "follow request");
     axios.post('http://localhost:5000/follow-users', { userId }, { withCredentials: true })
   }
 
-  console.log(users, "this is state")
+  const handleUnFollow = (userId) => {
+    axios.post('http://localhost:5000/unfollow-users', { userId }, { withCredentials: true })
+  }
+
   return (
     <div className='FollowersCard'>
       <h3>People you may know </h3>
@@ -37,12 +39,30 @@ const FolloweresCard = () => {
               <img src={follower.profilePicture ? follower.profilePicture : profile} alt="" className='follwerImg' />
               <div className="name">
                 <span>{follower.name}</span>
-                <span>@{follower.name}</span>
+                <span>{follower.email}</span>
               </div>
             </div>
-            <button className='button fc-button' onClick={() => { handleFollow(follower._id) }}>
-              Follow
-            </button>
+
+            {user.followers[0] ?
+              user.followers.map((val, id) => {
+                if (val === follower._id) {
+                  return <button className='button fc-button' onClick={() => { handleUnFollow(follower._id) }} key={id}>
+                    unfollow
+                  </button>
+                } else {
+                  return <button className='button fc-button' onClick={() => {
+                    handleFollow(follower._id)
+                  }} key={id}>
+                    follow
+                  </button>
+                }
+              }) :
+              <button className='button fc-button' onClick={() => {
+                handleFollow(follower._id)
+              }} key={id}>follow</button>
+            }
+
+
           </div>
         )
       })}

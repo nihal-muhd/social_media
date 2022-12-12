@@ -80,7 +80,7 @@ module.exports.login = async (req, res, next) => {
                         httpOnly: false,
                         maxAge: maxAge * 1000
                     })
-                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture })
+                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status, followers: user.followers })
                 } else {
                     res.status(401).json({ status: 'inavalid password' })
                 }
@@ -99,7 +99,7 @@ module.exports.login = async (req, res, next) => {
 module.exports.getUserData = async (req, res, next) => {
     try {
         const user = await getUser(req.cookies.jwt)
-        res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status })
+        res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status, followers: user.followers })
     } catch (error) {
         console.log(error)
     }
@@ -271,10 +271,22 @@ module.exports.followUser = async (req, res, next) => {
     console.log(req.body)
     const user = await getUser(req.cookies.jwt)
     console.log(user);
-    const followUserId=req.body.userId
-    await UserModel.updateOne({_id:user._id},{
-        $push:{
-            followers:followUserId
+    const followUserId = req.body.userId
+    await UserModel.updateOne({ _id: user._id }, {
+        $push: {
+            followers: followUserId
+        }
+    })
+}
+
+module.exports.unfollowUser = async (req, res, next) => {
+    const user = await getUser(req.cookies.jwt)
+    console.log(user,"hahhah");
+    const followUserId = req.body.userId
+    console.log(followUserId,"joke")
+    await UserModel.updateOne({ _id: user._id }, {
+        $pull: {
+            followers: followUserId
         }
     })
 }

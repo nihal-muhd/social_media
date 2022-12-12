@@ -21,6 +21,7 @@ const Post = ({ data, location, handleDelete }) => {
     const handleLike = async () => {
         setLiked((prev) => !prev)
         if (!liked) {
+            console.log(data._id,user.Id ,"uvais kolamblama");
             axios.post('http://localhost:5000/like-post', { postId: data._id, userId: user.Id }, { withCredentials: true })
             setLikes((prev) => prev + 1)
         } else {

@@ -32,33 +32,33 @@ const FolloweresCard = () => {
   return (
     <div className='FollowersCard'>
       <h3>People you may know </h3>
-      {users.map((follower, id) => {
+      {users.map((following, id) => {
         return (
           <div className="follower" key={id}>
             <div>
-              <img src={follower.profilePicture ? follower.profilePicture : profile} alt="" className='follwerImg' />
+              <img src={following.profilePicture ? following.profilePicture : profile} alt="" className='follwerImg' />
               <div className="name">
-                <span>{follower.name}</span>
-                <span>{follower.email}</span>
+                <span>{following.name}</span>
+                <span>{following.email}</span>
               </div>
             </div>
 
-            {user.followers[0] ?
-              user.followers.map((val, id) => {
-                if (val === follower._id) {
-                  return <button className='button fc-button' onClick={() => { handleUnFollow(follower._id) }} key={id}>
+            {user.following[0] ?
+              user.following.map((val, id) => {
+                if (val === following._id) {
+                  return <button className='button fc-button' onClick={() => { handleUnFollow(following._id) }} key={id}>
                     unfollow
                   </button>
                 } else {
                   return <button className='button fc-button' onClick={() => {
-                    handleFollow(follower._id)
+                    handleFollow(following._id)
                   }} key={id}>
                     follow
                   </button>
                 }
               }) :
               <button className='button fc-button' onClick={() => {
-                handleFollow(follower._id)
+                handleFollow(following._id)
               }} key={id}>follow</button>
             }
 

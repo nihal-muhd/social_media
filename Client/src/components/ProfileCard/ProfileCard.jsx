@@ -104,7 +104,7 @@ const ProfileCard = ({ location }) => {
                 <hr />
                 <div>
                     <div className="follow">
-                        <span>{user.following ? user.following : 0}</span>
+                        <span>{user.followings ? user.followings : 0}</span>
                         <span>Following</span>
                     </div>
                     <div className="vl"></div>

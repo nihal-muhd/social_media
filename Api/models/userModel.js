@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     relation_status: {
         type: String
     },
-    followers: [],
+    following: [],
     password: {
         type: String,
         required: [true, 'Please provide password']

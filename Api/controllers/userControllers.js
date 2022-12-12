@@ -80,7 +80,7 @@ module.exports.login = async (req, res, next) => {
                         httpOnly: false,
                         maxAge: maxAge * 1000
                     })
-                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status, followers: user.followers })
+                    res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status, following: user.following })
                 } else {
                     res.status(401).json({ status: 'inavalid password' })
                 }
@@ -99,7 +99,7 @@ module.exports.login = async (req, res, next) => {
 module.exports.getUserData = async (req, res, next) => {
     try {
         const user = await getUser(req.cookies.jwt)
-        res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status, followers: user.followers })
+        res.status(201).json({ Id: user._id, name: user.name, email: user.email, mobile: user.mobile, profile: user.profilePicture, cover: user.coverPicture, education: user.education, worksAt: user.worksAt, city: user.city, relation_status: user.relation_status, following: user.following })
     } catch (error) {
         console.log(error)
     }
@@ -117,7 +117,52 @@ module.exports.postUpload = async (req, res, next) => {
 module.exports.getPost = async (req, res, next) => {
     try {
         const userId = req.body.userId
-        const post = await PostModel.aggregate([
+        const otherspost = await UserModel.aggregate([
+            {
+                $match: { _id: mongoose.mongo.ObjectId(userId) }
+            },
+            {
+                $unwind: "$following"
+            },
+            {
+                $lookup: {
+                    from: 'posts',
+                    localField: 'following',
+                    foreignField: 'userId',
+                    as: 'otherpost'
+                }
+            },
+            {
+                $unwind: "$otherpost"
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'otherpost.userId',
+                    foreignField: '_id',
+                    as: 'result'
+                }
+            },
+            {
+                $unwind: "$result"
+            },
+            {
+                $project: {
+                    _id:0,
+                    user_id:'$_id',
+                    follow_user_id:'$otherpost.userId',
+                    user_name:'$result.name',
+                    _id:'$otherpost._id',
+                    desc:'$otherpost.desc',
+                    likes:'$otherpost.likes',
+                    comments:'$otherpost.comments',
+                    imageUrl:'$otherpost.imageUrl',
+                    createdAt:'$otherpost.createdAt'
+                }
+            }
+
+        ]).sort({ createdAt: -1 })
+        const mypost = await PostModel.aggregate([
             {
                 $match: { userId: mongoose.mongo.ObjectId(userId) }
             },
@@ -146,6 +191,10 @@ module.exports.getPost = async (req, res, next) => {
             }
 
         ]).sort({ createdAt: -1 })
+        console.log(otherspost,"shamon");
+        console.log(mypost,"my post is this");
+        const post=[...mypost,...otherspost].sort((a,b)=>b.createdAt-a.createdAt)
+        console.log(post,"hihihih")
         res.status(201).json({ post })
     } catch (error) {
         console.log(error)
@@ -274,19 +323,19 @@ module.exports.followUser = async (req, res, next) => {
     const followUserId = req.body.userId
     await UserModel.updateOne({ _id: user._id }, {
         $push: {
-            followers: followUserId
+            following: mongoose.mongo.ObjectId(followUserId)
         }
     })
 }
 
 module.exports.unfollowUser = async (req, res, next) => {
     const user = await getUser(req.cookies.jwt)
-    console.log(user,"hahhah");
+    console.log(user, "hahhah");
     const followUserId = req.body.userId
-    console.log(followUserId,"joke")
+    console.log(followUserId, "joke")
     await UserModel.updateOne({ _id: user._id }, {
         $pull: {
-            followers: followUserId
+            following: mongoose.mongo.ObjectId(followUserId)
         }
     })
 }

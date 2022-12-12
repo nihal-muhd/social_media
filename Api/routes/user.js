@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { signup, verifyUser, login, getUserData, postUpload, getPost, likePost, unlikePost, updateProfile, updateCover, updateInfo, deletePost, commentPost, getUsers,followUser,unfollowUser } = require('../controllers/userControllers')
+const { signup, verifyUser, login, getUserData, postUpload, getPost, likePost, unlikePost, updateProfile, updateCover, updateInfo, deletePost, commentPost, getUsers,followUser,unfollowUser,getProfilePost } = require('../controllers/userControllers')
 
 router.get('/getUserData', getUserData)
 router.get('/get-users', getUsers)
@@ -19,5 +19,6 @@ router.post('/delete-post', deletePost)
 router.post('/comment-post', commentPost)
 router.post('/follow-users',followUser)
 router.post('/unfollow-users',unfollowUser)
+router.post('/get-profilePost',getProfilePost)
 
 module.exports = router

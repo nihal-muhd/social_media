@@ -14,12 +14,15 @@ const Posts = ({ location }) => {
 
 
     const [post, setPost] = useState()
+    const [profilePost,setProfilePost]=useState()
 
     useEffect(() => {
 
         async function getPost() {
             const posts = await axios.post('http://localhost:5000/get-post', { userId }, { withCredentials: true })
             setPost(posts.data.post)
+            const proflepost=await axios.post('http://localhost:5000/get-profilePost', { userId }, { withCredentials: true })
+            setProfilePost(proflepost.data.mypost)
         }
         getPost()
     }, [userId])
@@ -43,7 +46,7 @@ const Posts = ({ location }) => {
         <div className='Posts'>
 
             {location === 'profilepage' ?
-                post?.map((post, id) => {
+                profilePost?.map((post, id) => {
                     return <Post key={id} data={post} id={id} location='profilepage' handleDelete={handleDelete} />
                 }) :
                 post?.map((post, id) => {

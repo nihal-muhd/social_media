@@ -41,6 +41,7 @@ const Post = ({ data, location, handleDelete }) => {
     return (
         <div className='Post'>
             {location === 'profilepage' ? <TrashIcon style={{ cursor: "pointer", alignSelf: 'flex-end' }} onClick={() => { handleDelete(data._id) }} /> : ''}
+         
             <img src={data.imageUrl} alt="" />
 
 

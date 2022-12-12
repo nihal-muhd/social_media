@@ -148,16 +148,16 @@ module.exports.getPost = async (req, res, next) => {
             },
             {
                 $project: {
-                    _id:0,
-                    user_id:'$_id',
-                    follow_user_id:'$otherpost.userId',
-                    user_name:'$result.name',
-                    _id:'$otherpost._id',
-                    desc:'$otherpost.desc',
-                    likes:'$otherpost.likes',
-                    comments:'$otherpost.comments',
-                    imageUrl:'$otherpost.imageUrl',
-                    createdAt:'$otherpost.createdAt'
+                    _id: 0,
+                    user_id: '$_id',
+                    follow_user_id: '$otherpost.userId',
+                    user_name: '$result.name',
+                    _id: '$otherpost._id',
+                    desc: '$otherpost.desc',
+                    likes: '$otherpost.likes',
+                    comments: '$otherpost.comments',
+                    imageUrl: '$otherpost.imageUrl',
+                    createdAt: '$otherpost.createdAt'
                 }
             }
 
@@ -191,10 +191,10 @@ module.exports.getPost = async (req, res, next) => {
             }
 
         ]).sort({ createdAt: -1 })
-        console.log(otherspost,"shamon");
-        console.log(mypost,"my post is this");
-        const post=[...mypost,...otherspost].sort((a,b)=>b.createdAt-a.createdAt)
-        console.log(post,"hihihih")
+        console.log(otherspost, "shamon");
+        console.log(mypost, "my post is this");
+        const post = [...mypost, ...otherspost].sort((a, b) => b.createdAt - a.createdAt)
+        console.log(post, "hihihih")
         res.status(201).json({ post })
     } catch (error) {
         console.log(error)
@@ -338,4 +338,38 @@ module.exports.unfollowUser = async (req, res, next) => {
             following: mongoose.mongo.ObjectId(followUserId)
         }
     })
+}
+
+module.exports.getProfilePost = async (req, res, next) => {
+    const userId = req.body.userId
+    const mypost = await PostModel.aggregate([
+        {
+            $match: { userId: mongoose.mongo.ObjectId(userId) }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'result'
+            }
+        },
+        {
+            $unwind: "$result"
+        },
+        {
+            $project: {
+                _id: 1,
+                userId: 1,
+                desc: 1,
+                likes: 1,
+                imageUrl: 1,
+                createdAt: 1,
+                user_name: '$result.name',
+                comments: 1
+            }
+        }
+
+    ]).sort({ createdAt: -1 })
+    res.status(201).json({mypost})
 }

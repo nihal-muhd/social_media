@@ -20,5 +20,6 @@ router.post('/comment-post', commentPost)
 router.post('/follow-users',followUser)
 router.post('/unfollow-users',unfollowUser)
 router.post('/get-profilePost',getProfilePost)
+router.post('/chat')
 
 module.exports = router

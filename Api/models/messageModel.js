@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const messageSchema = new mongoose.Schema({
-    chatId: {
+    conversationId: {
         type: String
     },
-    senderId: {
+    sender: {
         type: String
     },
     text: {

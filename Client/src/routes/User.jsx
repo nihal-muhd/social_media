@@ -5,11 +5,11 @@ import Login from '../pages/Login/Login'
 import Profile from '../pages/Profie/Profile'
 import Signup from '../pages/Signup/Signup'
 import Otp from '../pages/Otp/Otp'
-import Chat from '../pages/Chat/Chat'
 import ProtectedRoutes from '../ProtectedRoutes'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { getUserData } from '../redux/userSlice'
+import Messenger from '../pages/Chat/Messenger'
 
 
 const User = () => {
@@ -21,7 +21,7 @@ const User = () => {
         if (!user && cookies.jwt) {
             dispatch(getUserData())
         }
-    },[])
+    }, [])
     return (
         <div>
             <Routes>
@@ -32,7 +32,7 @@ const User = () => {
                 <Route element={<ProtectedRoutes />}>
                     <Route element={<Home />} path='/' />
                     <Route element={<Profile />} path='/profile/:id' />
-                    <Route element={<Chat />} path='/chat' />
+                    <Route element={<Messenger />} path='/chat' />
                 </Route>
             </Routes>
         </div >

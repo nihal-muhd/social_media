@@ -371,5 +371,11 @@ module.exports.getProfilePost = async (req, res, next) => {
         }
 
     ]).sort({ createdAt: -1 })
-    res.status(201).json({mypost})
+    res.status(201).json({ mypost })
+}
+
+module.exports.getUser = async (req, res, next) => {
+    const user = await UserModel.findOne({ _id: req.params.userId })
+    console.log(user);
+    res.status(201).json({ user })
 }

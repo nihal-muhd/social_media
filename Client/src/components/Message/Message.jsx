@@ -4,7 +4,7 @@ import profile from '../../img/defaultProfile.png'
 import { format } from 'timeago.js'
 
 const Message = ({ message, own }) => {
-    return (
+  return (
         <div className={own ? 'message own' : 'message'}>
             <div className="messageTop">
                 <img className='messageImg' src={profile} alt="" />
@@ -13,7 +13,7 @@ const Message = ({ message, own }) => {
             </div>
             <div className="messageBottom">{format(message.createdAt)}</div>
         </div >
-    )
+  )
 }
 
 export default Message

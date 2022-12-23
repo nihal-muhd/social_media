@@ -11,18 +11,17 @@ import { useCookies } from 'react-cookie'
 import { getUserData } from '../redux/userSlice'
 import Messenger from '../pages/Chat/Messenger'
 
-
 const User = () => {
-    const { user } = useSelector((state) => state.user)
-    const [cookies, setCookies] = useCookies([])
-    const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.user)
+  const [cookies] = useCookies([])
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-        if (!user && cookies.jwt) {
-            dispatch(getUserData())
-        }
-    }, [])
-    return (
+  useEffect(() => {
+    if (!user && cookies.jwt) {
+      dispatch(getUserData())
+    }
+  }, [])
+  return (
         <div>
             <Routes>
                 <Route element={<Signup />} path='/signup' />
@@ -36,7 +35,7 @@ const User = () => {
                 </Route>
             </Routes>
         </div >
-    )
+  )
 }
 
 export default User

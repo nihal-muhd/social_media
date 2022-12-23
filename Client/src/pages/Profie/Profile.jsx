@@ -6,7 +6,7 @@ import RightSide from '../../components/RightSide/RightSide'
 import './Profile.css'
 
 const Profile = () => {
-    return (
+  return (
         <div className='Profile'>
             <ProfileLeft />
             <div className="Profile-center">
@@ -15,7 +15,7 @@ const Profile = () => {
             </div>
             <RightSide/>
         </div>
-    )
+  )
 }
 
 export default Profile

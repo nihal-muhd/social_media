@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { UilTimes } from '@iconscout/react-unicons'
 
@@ -10,67 +10,61 @@ import profile from '../../img/defaultProfile.png'
 import './ProfileCard.css'
 import axios from 'axios'
 
-
 const ProfileCard = ({ location }) => {
+  const { user } = useSelector((state) => state.user)
+  const profileRef = useRef()
+  const coverRef = useRef()
 
-    const { user } = useSelector((state) => state.user)
-    const profileRef = useRef()
-    const coverRef = useRef()
+  const [profilePic, setProfilePic] = useState(null)
+  const [coverPic, setCoverPic] = useState(null)
 
-    const [profilePic, setProfilePic] = useState(null)
-    const [coverPic, setCoverPic] = useState(null)
-
-    const handleProfile = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            let img = e.target.files[0]
-            setProfilePic(img)
-        }
+  const handleProfile = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const img = e.target.files[0]
+      setProfilePic(img)
     }
+  }
 
-    const handleCover = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            let img = e.target.files[0]
-            setCoverPic(img)
-        }
+  const handleCover = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const img = e.target.files[0]
+      setCoverPic(img)
     }
+  }
 
-    const shareProfile = () => {
-        const profileData = {
-            userId: user.Id,
-        }
-        const data = new FormData()
-        const filename = Date.now() + profilePic.name
-        data.append("name", filename)
-        data.append("file", profilePic)
-        data.append("upload_preset", "weshare_images")
-        axiosImage.post('/image/upload', data).then((res) => {
-            profileData.profileurl = res.data.secure_url
-            axios.post('http://localhost:5000/profile-picture', { profileData }, { withCredentials: true })
-            setCoverPic(null)
-        })
-
+  const shareProfile = () => {
+    const profileData = {
+      userId: user.Id
     }
+    const data = new FormData()
+    const filename = Date.now() + profilePic.name
+    data.append('name', filename)
+    data.append('file', profilePic)
+    data.append('upload_preset', 'weshare_images')
+    axiosImage.post('/image/upload', data).then((res) => {
+      profileData.profileurl = res.data.secure_url
+      axios.post('http://localhost:5000/profile-picture', { profileData }, { withCredentials: true })
+      setCoverPic(null)
+    })
+  }
 
-    const shareCover = () => {
-        const profileData = {
-            userId: user.Id,
-        }
-        const data = new FormData()
-        const filename = Date.now() + coverPic.name
-        data.append("name", filename)
-        data.append("file", coverPic)
-        data.append("upload_preset", "weshare_images")
-        axiosImage.post('/image/upload', data).then((res) => {
-            profileData.coverurl = res.data.secure_url
-            axios.post('http://localhost:5000/cover-picture', { profileData }, { withCredentials: true })
-            setCoverPic(null)
-        })
-
+  const shareCover = () => {
+    const profileData = {
+      userId: user.Id
     }
+    const data = new FormData()
+    const filename = Date.now() + coverPic.name
+    data.append('name', filename)
+    data.append('file', coverPic)
+    data.append('upload_preset', 'weshare_images')
+    axiosImage.post('/image/upload', data).then((res) => {
+      profileData.coverurl = res.data.secure_url
+      axios.post('http://localhost:5000/cover-picture', { profileData }, { withCredentials: true })
+      setCoverPic(null)
+    })
+  }
 
-
-
-    return (
+  return (
         <div className='ProfileCard'>
             <div style={{ display: 'none' }}>
                 <input type="file" name='profile' ref={profileRef} onChange={handleProfile} />
@@ -98,7 +92,7 @@ const ProfileCard = ({ location }) => {
             )}
             <div className="ProfileName">
                 <span>{user.name}</span>
-                <span>{user.worksAt ? user.worksAt : "works at....?"}</span>
+                <span>{user.worksAt ? user.worksAt : 'works at....?'}</span>
             </div>
             <div className="followStatus">
                 <hr />
@@ -124,17 +118,18 @@ const ProfileCard = ({ location }) => {
                 </div>
                 <hr />
             </div>
-            {location === 'profilepage' ? (
-                ""
-            ) : (
+            {location === 'profilepage'
+              ? (
+                  ''
+                )
+              : (
                 <span >
-                    <Link style={{ textDecoration: "none", color: "inherit" }} to={`/profile/${user.Id}`}>   My Profile</Link>
+                    <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/profile/${user.Id}`}>   My Profile</Link>
                 </span>
-            )}
-
+                )}
 
         </div>
-    )
+  )
 }
 
 export default ProfileCard

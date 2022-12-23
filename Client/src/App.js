@@ -1,10 +1,9 @@
-import "./App.css"
+import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import User from "./routes/User";
-import Admin from "./routes/Admin";
+import User from './routes/User'
+import Admin from './routes/Admin'
 
-
-function App() {
+function App () {
   return (
     <div className="App">
       <div className="blur" style={{ top: '-18%', right: '0' }}></div>
@@ -16,9 +15,8 @@ function App() {
         <Route element={<Admin />} path='/admin/*' />
       </Routes>
 
-
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

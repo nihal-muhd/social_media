@@ -3,7 +3,7 @@ import { UilSearch } from '@iconscout/react-unicons'
 import './LogoSearch.css'
 
 const LogoSearch = () => {
-    return (
+  return (
         <div className='LogoSearch'>
             <div className='logo-name'>WeShare</div>
             <div className="Search">
@@ -13,7 +13,7 @@ const LogoSearch = () => {
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
 export default LogoSearch

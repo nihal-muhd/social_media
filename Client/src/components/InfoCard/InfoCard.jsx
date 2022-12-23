@@ -1,28 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { UilPen } from '@iconscout/react-unicons'
-import { useState } from 'react'
+
 import ProfileModal from '../../components/ProfileModal/ProfileModal'
-import { useCookies } from 'react-cookie';
-import { useDispatch, useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { logout } from '../../redux/userSlice';
+import { logout } from '../../redux/userSlice'
 import './InfoCard.css'
 
 const InfoCard = () => {
-    const navigate = useNavigate()
-    const [cookie, setCookie, removeCookie] = useCookies([])
-    const dispatch = useDispatch()
-    const { user } = useSelector((state) => state.user)
+  const navigate = useNavigate()
+  const [cookie, setCookie, removeCookie] = useCookies([])
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.user)
 
-    const [modalOpen, setModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
 
-    const Logout = () => {
-        removeCookie('jwt')
-        dispatch(logout())
-        navigate('/login')
-    }
+  const Logout = () => {
+    removeCookie('jwt')
+    dispatch(logout())
+    navigate('/login')
+  }
 
-    return (
+  return (
         <div className='InfoCard'>
             <div className="infoHead">
                 <h4>Your Info</h4>
@@ -59,7 +59,7 @@ const InfoCard = () => {
 
             <button className='button logout-button' onClick={Logout}>Logout</button>
         </div>
-    )
+  )
 }
 
 export default InfoCard

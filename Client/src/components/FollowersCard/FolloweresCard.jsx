@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { Followers } from '../../Data/FolloweresData'
 import profile from '../../img/defaultProfile.png'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
@@ -12,10 +11,9 @@ const FolloweresCard = () => {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    async function getUsers() {
+    async function getUsers () {
       const res = await axios.get('http://localhost:5000/get-users', { withCredentials: true })
       const userList = res.data.users
-      console.log(userList, "mens are here");
       setUsers(userList.filter((val) => val._id !== user.Id))
     }
     getUsers()
@@ -43,8 +41,8 @@ const FolloweresCard = () => {
               </div>
             </div>
 
-            {user.following[0] ?
-              user.following.map((val, id) => {
+            {user.following[0]
+              ? user.following.map((val, id) => {
                 if (val === following._id) {
                   return <button className='button fc-button' onClick={() => { handleUnFollow(following._id) }} key={id}>
                     unfollow
@@ -56,12 +54,11 @@ const FolloweresCard = () => {
                     follow
                   </button>
                 }
-              }) :
-              <button className='button fc-button' onClick={() => {
+              })
+              : <button className='button fc-button' onClick={() => {
                 handleFollow(following._id)
               }} key={id}>follow</button>
             }
-
 
           </div>
         )

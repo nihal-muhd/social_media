@@ -1,39 +1,36 @@
-import { Modal, useMantineTheme } from '@mantine/core';
-import axios from 'axios';
+import { Modal, useMantineTheme } from '@mantine/core'
+import axios from 'axios'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
+function ProfileModal ({ modalOpen, setModalOpen }) {
+  const theme = useMantineTheme()
 
-function ProfileModal({ modalOpen, setModalOpen }) {
-    const theme = useMantineTheme();
+  const navigate = useNavigate()
+  const { user } = useSelector((state) => state.user)
 
-    const navigate = useNavigate()
-    const { user } = useSelector((state) => state.user)
+  const [formData, setFormData] = useState({ name: user.name ? user.name : '', education: user.education ? user.education : '', worksAt: user.workAt ? user.workAt : '', city: user.city ? user.city : '', relation_status: user.relation_status ? user.relation_status : '' })
+  const userId = user.Id
 
-    const [formData, setFormData] = useState({ name: user.name ? user.name : '', education: user.education ? user.education : '', worksAt: user.workAt ? user.workAt : '', city: user.city ? user.city : '', relation_status: user.relation_status ? user.relation_status : '' })
-    const userId = user.Id
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }))
+  }
 
-    const handleChange = (e) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const response = await axios.post('http://localhost:5000/info-update', { formData, userId }, { withCredentials: true })
+    if (response.status === 201) {
+      navigate('/profile/' + user.Id)
+    } else {
+      console.log('user detail not updated')
     }
+  }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        let response = await axios.post('http://localhost:5000/info-update', { formData, userId }, { withCredentials: true })
-        if (response.status === 201) {
-            navigate('/profile/' + user.Id)
-        } else {
-            console.log("user detail not updated")
-        }
-    }
-
-
-
-    return (
+  return (
         <Modal
             overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
             overlayOpacity={0.55}
@@ -62,7 +59,7 @@ function ProfileModal({ modalOpen, setModalOpen }) {
 
             </form>
         </Modal>
-    );
+  )
 }
 
 export default ProfileModal

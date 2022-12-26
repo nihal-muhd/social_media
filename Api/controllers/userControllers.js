@@ -189,10 +189,7 @@ module.exports.getPost = async (req, res, next) => {
       }
 
     ]).sort({ createdAt: -1 })
-    console.log(otherspost, 'shamon')
-    console.log(mypost, 'my post is this')
     const post = [...mypost, ...otherspost].sort((a, b) => b.createdAt - a.createdAt)
-    console.log(post, 'hihihih')
     res.status(201).json({ post })
   } catch (error) {
     console.log(error)
@@ -307,7 +304,6 @@ module.exports.commentPost = async (req, res, next) => {
 module.exports.getUsers = async (req, res, next) => {
   try {
     const users = await UserModel.find()
-    console.log(users)
     res.status(201).json({ users })
   } catch (error) {
 
@@ -374,6 +370,5 @@ module.exports.getProfilePost = async (req, res, next) => {
 
 module.exports.getUser = async (req, res, next) => {
   const user = await UserModel.findOne({ _id: req.params.userId })
-  console.log(user)
   res.status(201).json({ user })
 }

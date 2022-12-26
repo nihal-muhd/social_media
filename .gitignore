@@ -1,3 +1,4 @@
 /Api/node_modules
 /.env
 /Client/node_modules
+/Socket/node_modules

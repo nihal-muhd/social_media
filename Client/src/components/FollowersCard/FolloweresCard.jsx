@@ -37,7 +37,7 @@ const FolloweresCard = () => {
               <img src={following.profilePicture ? following.profilePicture : profile} alt="" className='follwerImg' />
               <div className="name">
                 <span>{following.name}</span>
-                <span>{following.email}</span>
+                <span>{'_' + following.name + '_'}</span>
               </div>
             </div>
 
@@ -55,6 +55,7 @@ const FolloweresCard = () => {
                   </button>
                 }
               })
+
               : <button className='button fc-button' onClick={() => {
                 handleFollow(following._id)
               }} key={id}>follow</button>

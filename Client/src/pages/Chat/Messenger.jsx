@@ -23,7 +23,7 @@ const Messenger = () => {
   useEffect(() => {
     console.log('effect 1')
     socket.current = io('ws://localhost:8900')
-    console.log(1)
+    console.log('1')
     socket.current.on('getMessage', data => {
       console.log(data, 'ooobi')
       setArrivalMessage({
@@ -39,8 +39,8 @@ const Messenger = () => {
     console.log(arrivalMessage, 'arrival message effect 2')
     console.log(currentChat, 'current chat effect 2')
     arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
-      setMessages(prev => [...prev, arrivalMessage])
-  }, [arrivalMessage, currentChat])
+      setMessages((prev) => [...prev, arrivalMessage])
+  }, [arrivalMessage])
 
   useEffect(() => {
     console.log('effect 3')
@@ -94,7 +94,7 @@ const Messenger = () => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  console.log(arrivalMessage, 'message vannu');
+  console.log(arrivalMessage, 'arrival message vannu')
 
   return (
     <>

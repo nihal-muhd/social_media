@@ -21,11 +21,8 @@ const Messenger = () => {
   const [arrivalMessage, setArrivalMessage] = useState(null)
 
   useEffect(() => {
-    console.log('effect 1')
     socket.current = io('ws://localhost:8900')
-    console.log('1')
     socket.current.on('getMessage', data => {
-      console.log(data, 'ooobi')
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -35,23 +32,17 @@ const Messenger = () => {
   }, [])
 
   useEffect(() => {
-    console.log('effect 2')
-    console.log(arrivalMessage, 'arrival message effect 2')
-    console.log(currentChat, 'current chat effect 2')
     arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage])
   }, [arrivalMessage])
 
   useEffect(() => {
-    console.log('effect 3')
     socket.current.emit('addUser', userId)
     socket.current.on('getUsers', users => {
-      console.log(users, 'kadaaapuram')
     })
   }, [user])
 
   useEffect(() => {
-    console.log('effect 4')
     const getConversations = async () => {
       const res = await axios.get('http://localhost:5000/conversation/' + userId, { withCredentials: true })
       setConversations(res.data.conversation)
@@ -60,7 +51,6 @@ const Messenger = () => {
   }, [userId])
 
   useEffect(() => {
-    console.log('effect 5')
     const getMessages = async () => {
       const res = await axios.get('http://localhost:5000/message/' + currentChat?._id, { withCredentials: true })
       setMessages(res.data.messages)
@@ -89,12 +79,10 @@ const Messenger = () => {
     setNewMessage('')
   }
 
+  // To scroll to latest chat
   useEffect(() => {
-    console.log('effect 6')
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
-
-  console.log(arrivalMessage, 'arrival message vannu')
 
   return (
     <>
@@ -103,9 +91,9 @@ const Messenger = () => {
         <div className="chatMenu">
           <div className="chatMenuWrapper">
 
-            {conversations.map((c) => (
+            {conversations.map((c, id) => (
               // eslint-disable-next-line react/jsx-key
-              <div onClick={() => setCurrentChat(c)}>
+              <div key={id} onClick={() => setCurrentChat(c)}>
                 <Conversation conversation={c} />
               </div>
             ))}

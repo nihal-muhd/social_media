@@ -62,8 +62,13 @@
   top: 10%;
   font-size: 50px;
   color: rgb(189, 188, 188);
-  
   cursor: default;
+}
 
+@media only screen and (max-width:930PX) {
+  .chatOnlineWrapper{
+      /* grid-template-columns: 0rem auto 0rem; */
+      display: none;
+  }
 
 }

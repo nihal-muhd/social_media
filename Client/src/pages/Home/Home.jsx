@@ -7,9 +7,9 @@ import './Home.css'
 const Home = () => {
   return (
     <div className='Home'>
-        <ProfileSIde/>
-        <PostSide/>
-        <RightSide/>
+      <div className='ProfileSide-home'><ProfileSIde /></div>
+      <PostSide />
+      <div className="RightSide-home"><RightSide /></div>
 
     </div>
   )

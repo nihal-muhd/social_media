@@ -72,19 +72,19 @@ const PostShare = () => {
         <div className="postOptions">
           <div className="option" style={{ color: 'var(--photo)' }} onClick={() => imageRef.current.click()}>
             <UilScenery />
-            Photo
+            <span className='icons-name'>Photo</span>
           </div>
           <div className="option" style={{ color: 'var(--video)' }}>
             <UilPlayCircle />
-            Vedio
+            <span className='icons-name'>Vedio </span>
           </div>
           <div className="option" style={{ color: 'var(--location)' }}>
             <UilLocationPoint />
-            Location
+            <span className='icons-name'>Location</span>
           </div>
           <div className="option" style={{ color: 'var(--schedule)' }}>
             <UilSchedule />
-            Schedule
+            <span className='icons-name'>Schedule</span>
           </div>
           {loading ? <SpinnerIcon pulse style={{ fontSize: '2em' }} /> : <button className='button ps-button' onClick={handleShare}>Share</button>}
 

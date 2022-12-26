@@ -1,5 +1,5 @@
 import React from 'react'
-import FolloweresCard from '../FollowersCard/FolloweresCard'
+// import FolloweresCard from '../FollowersCard/FolloweresCard'
 import LogoSearch from '../LogoSearch/LogoSearch'
 import ProfileCard from '../ProfileCard/ProfileCard'
 import './ProfileSide.css'
@@ -9,7 +9,7 @@ const ProfileSIde = () => {
     <div className='ProfileSide'>
      <LogoSearch/>
      <ProfileCard location="homepage"/>
-     <FolloweresCard/>
+     {/* <FolloweresCard/> */}
     </div>
   )
 }

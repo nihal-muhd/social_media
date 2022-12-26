@@ -7,14 +7,14 @@ import './Profile.css'
 
 const Profile = () => {
   return (
-        <div className='Profile'>
-            <ProfileLeft />
-            <div className="Profile-center">
-                <ProfileCard location="profilepage"/>
-                 <PostSide location="profilepage"/>
-            </div>
-            <RightSide/>
-        </div>
+    <div className='Profile'>
+      <div className='profile-profileLeft'><ProfileLeft /></div>
+      <div className="Profile-center">
+        <ProfileCard location="profilepage" />
+        <PostSide location="profilepage" />
+      </div>
+      <div><RightSide /></div>
+    </div>
   )
 }
 

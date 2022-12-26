@@ -15,7 +15,6 @@ module.exports.newConversation = async (req, res, next) => {
 
 module.exports.getConversation = async (req, res, next) => {
   try {
-    console.log(req.params, 'fuk off')
     const conversation = await ConversationModel.find({
       members: { $in: [req.params.userId] }
     })

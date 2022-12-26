@@ -16,7 +16,7 @@
 }
 
 .profileNav {
-    display: block;
+    display: none;
 }
 
 @media only screen and (max-width:930PX) {

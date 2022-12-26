@@ -1,0 +1,21 @@
+.admin-navmain{
+    width: 100%;
+    background-color: rgba(205, 204, 204, 0.832);
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-radius: 1rem;
+}
+.admin-navlogo{
+    width: 90%;
+    font-size: 1.5rem;
+    margin-left: 2rem;
+    margin-top: .5rem;
+}
+.admin-icons{
+    display: flex;
+    gap: 2rem;
+    margin-right: 3rem;
+    padding: 5px;
+    
+}

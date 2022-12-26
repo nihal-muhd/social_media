@@ -1,0 +1,14 @@
+.adminsidebar-main{
+    height: 10rem;
+    background-color: rgba(205, 204, 204, 0.832);
+    margin-right: 1rem;
+    border-radius: 1rem;
+}
+.adminsidebar-options{
+    padding: 8px;
+    font-weight: 500;
+}
+.adminsidebar-text{
+    padding-left: 5px;
+    cursor: pointer;
+}

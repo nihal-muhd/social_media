@@ -1,9 +1,10 @@
-const client = require('twilio')(process.env.TWILIO_FIRST_ID, process.env.TWILIO_SECOND_ID)
-const serviceSid = process.env.TWILIO_SERVICE_ID
+const client = require('twilio')('ACb6aab4102c23e7c2b22fb0ca89af0ab4', 'c070c5c874293219603bd31aef448d54')
+const serviceSid = 'VA73318f9dd61f21c7f30b72272c466790'
 
 module.exports = {
 
   doSms: (userData) => {
+    console.log(userData, 'at otp')
     let res = {}
     return new Promise(async (resolve, reject) => {
       try {
@@ -11,9 +12,11 @@ module.exports = {
           to: `+91${userData.mobile}`,
           channel: 'sms'
         })
+        console.log(res, 'response from twilio')
         res.valid = true
         resolve(res)
       } catch (error) {
+        console.log('catch error')
         reject(error)
       }
     })

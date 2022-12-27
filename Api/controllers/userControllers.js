@@ -31,7 +31,9 @@ module.exports.signup = async (req, res, next) => {
         status: 'Email or mobile number already exist'
       })
     } else {
+      console.log('to otp')
       const data = await twilioController.doSms(req.body)
+      console.log(data, 'otp')
       if (data) {
         res.status(201).json({
           status: 'otp generated'

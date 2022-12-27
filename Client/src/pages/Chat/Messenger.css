@@ -68,7 +68,18 @@
 @media only screen and (max-width:930PX) {
   .chatOnlineWrapper{
       /* grid-template-columns: 0rem auto 0rem; */
-      display: none;
+      /* display: none; */
   }
 
+}
+
+@media only screen and (max-width:692PX) {
+
+  .messenger {
+    height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  
+  }
 }

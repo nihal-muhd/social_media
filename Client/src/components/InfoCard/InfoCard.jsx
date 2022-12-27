@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { UilPen } from '@iconscout/react-unicons'
-
-import ProfileModal from '../../components/ProfileModal/ProfileModal'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../redux/userSlice'
+
+import { UilPen } from '@iconscout/react-unicons'
+import ProfileModal from '../../components/ProfileModal/ProfileModal'
+
 import './InfoCard.css'
 
 const InfoCard = () => {

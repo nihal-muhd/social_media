@@ -1,7 +1,8 @@
 import React from 'react'
-import { BsHouseFill, BsPeopleFill, BsBoxArrowRight } from 'react-icons/bs'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
+import { BsHouseFill, BsPeopleFill, BsBoxArrowRight } from 'react-icons/bs'
+
 import './Sidebar.css'
 
 const Sidebar = () => {

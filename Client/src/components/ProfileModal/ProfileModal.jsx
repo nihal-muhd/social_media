@@ -1,8 +1,8 @@
-import { Modal, useMantineTheme } from '@mantine/core'
-import axios from 'axios'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { Modal, useMantineTheme } from '@mantine/core'
+import axios from 'axios'
 
 function ProfileModal ({ modalOpen, setModalOpen }) {
   const theme = useMantineTheme()

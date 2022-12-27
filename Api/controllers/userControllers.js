@@ -1,9 +1,11 @@
-const UserModel = require('../models/userModel')
-const bcrypt = require('bcrypt')
-const twilioController = require('../controllers/twilioControllers')
-const jwt = require('jsonwebtoken')
-const PostModel = require('../models/postModel')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+
+const UserModel = require('../models/userModel')
+const PostModel = require('../models/postModel')
+
+const twilioController = require('../controllers/twilioControllers')
 
 const getUser = async (token) => {
   try {
@@ -103,204 +105,6 @@ module.exports.getUserData = async (req, res, next) => {
   }
 }
 
-module.exports.postUpload = async (req, res, next) => {
-  try {
-    const postData = req.body
-    await PostModel.create(postData)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-module.exports.getPost = async (req, res, next) => {
-  try {
-    const userId = req.body.userId
-    const otherspost = await UserModel.aggregate([
-      {
-        $match: { _id: mongoose.mongo.ObjectId(userId) }
-      },
-      {
-        $unwind: '$following'
-      },
-      {
-        $lookup: {
-          from: 'posts',
-          localField: 'following',
-          foreignField: 'userId',
-          as: 'otherpost'
-        }
-      },
-      {
-        $unwind: '$otherpost'
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'otherpost.userId',
-          foreignField: '_id',
-          as: 'result'
-        }
-      },
-      {
-        $unwind: '$result'
-      },
-      {
-        $project: {
-          _id: 0,
-          user_id: '$_id',
-          follow_user_id: '$otherpost.userId',
-          user_name: '$result.name',
-          _id: '$otherpost._id',
-          desc: '$otherpost.desc',
-          likes: '$otherpost.likes',
-          comments: '$otherpost.comments',
-          imageUrl: '$otherpost.imageUrl',
-          createdAt: '$otherpost.createdAt'
-        }
-      }
-
-    ]).sort({ createdAt: -1 })
-    const mypost = await PostModel.aggregate([
-      {
-        $match: { userId: mongoose.mongo.ObjectId(userId) }
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'userId',
-          foreignField: '_id',
-          as: 'result'
-        }
-      },
-      {
-        $unwind: '$result'
-      },
-      {
-        $project: {
-          _id: 1,
-          userId: 1,
-          desc: 1,
-          likes: 1,
-          imageUrl: 1,
-          createdAt: 1,
-          user_name: '$result.name',
-          comments: 1
-        }
-      }
-
-    ]).sort({ createdAt: -1 })
-    const post = [...mypost, ...otherspost].sort((a, b) => b.createdAt - a.createdAt)
-    res.status(201).json({ post })
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-module.exports.likePost = async (req, res, next) => {
-  try {
-    const postID = req.body.postId
-    const userID = req.body.userId
-    await PostModel.updateOne({ _id: postID }, {
-      $push: {
-        likes: userID
-      }
-    })
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-module.exports.unlikePost = async (req, res, next) => {
-  try {
-    const postID = req.body.postId
-    const userID = req.body.userId
-    await PostModel.updateOne({ _id: postID }, {
-      $pull: {
-        likes: userID
-      }
-    })
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-module.exports.updateProfile = async (req, res, next) => {
-  try {
-    const profileURL = req.body.profileData.profileurl
-    const userId = req.body.profileData.userId
-    await UserModel.updateOne({ _id: userId }, {
-      $set: {
-        profilePicture: profileURL
-      }
-    })
-    res.status(201).json({ status: 'success' })
-  } catch (error) {
-
-  }
-}
-
-module.exports.updateCover = async (req, res, next) => {
-  try {
-    console.log('hii')
-    const coverURL = req.body.profileData.coverurl
-    const userId = req.body.profileData.userId
-    await UserModel.updateOne({ _id: userId }, {
-      $set: {
-        coverPicture: coverURL
-      }
-    })
-    res.status(201).json({ status: 'success' })
-  } catch (error) {
-
-  }
-}
-
-module.exports.updateInfo = async (req, res, next) => {
-  try {
-    const info = req.body.formData
-    const userId = req.body.userId
-    await UserModel.updateOne({ _id: userId }, {
-      $set: {
-        name: info.name,
-        education: info.education,
-        worksAt: info.worksAt,
-        city: info.city,
-        relation_status: info.relation_status
-      }
-    })
-    res.status(201).json({ status: 'success' })
-  } catch (error) {
-
-  }
-}
-
-module.exports.deletePost = async (req, res, next) => {
-  try {
-    const postId = req.body.postId
-    await PostModel.deleteOne({ _id: postId })
-  } catch (error) {
-
-  }
-}
-
-module.exports.commentPost = async (req, res, next) => {
-  try {
-    console.log(req.body)
-    const postId = req.body.postId
-    const comments = {
-      username: req.body.username,
-      comment: req.body.comment
-    }
-    await PostModel.updateOne({ _id: postId }, {
-      $push: {
-        comments
-      }
-    })
-  } catch (error) {
-
-  }
-}
-
 module.exports.getUsers = async (req, res, next) => {
   try {
     const users = await UserModel.find()
@@ -311,9 +115,7 @@ module.exports.getUsers = async (req, res, next) => {
 }
 
 module.exports.followUser = async (req, res, next) => {
-  console.log(req.body)
   const user = await getUser(req.cookies.jwt)
-  console.log(user)
   const followUserId = req.body.userId
   await UserModel.updateOne({ _id: user._id }, {
     $push: {
@@ -324,48 +126,12 @@ module.exports.followUser = async (req, res, next) => {
 
 module.exports.unfollowUser = async (req, res, next) => {
   const user = await getUser(req.cookies.jwt)
-  console.log(user, 'hahhah')
   const followUserId = req.body.userId
-  console.log(followUserId, 'joke')
   await UserModel.updateOne({ _id: user._id }, {
     $pull: {
       following: mongoose.mongo.ObjectId(followUserId)
     }
   })
-}
-
-module.exports.getProfilePost = async (req, res, next) => {
-  const userId = req.body.userId
-  const mypost = await PostModel.aggregate([
-    {
-      $match: { userId: mongoose.mongo.ObjectId(userId) }
-    },
-    {
-      $lookup: {
-        from: 'users',
-        localField: 'userId',
-        foreignField: '_id',
-        as: 'result'
-      }
-    },
-    {
-      $unwind: '$result'
-    },
-    {
-      $project: {
-        _id: 1,
-        userId: 1,
-        desc: 1,
-        likes: 1,
-        imageUrl: 1,
-        createdAt: 1,
-        user_name: '$result.name',
-        comments: 1
-      }
-    }
-
-  ]).sort({ createdAt: -1 })
-  res.status(201).json({ mypost })
 }
 
 module.exports.getUser = async (req, res, next) => {

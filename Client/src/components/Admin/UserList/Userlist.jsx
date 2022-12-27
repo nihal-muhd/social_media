@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import axios from 'axios'
 
 const Userlist = () => {
   const [user, setUser] = useState([])

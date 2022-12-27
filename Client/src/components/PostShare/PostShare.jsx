@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react'
-import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
-import ProfileImg from '../../img/defaultProfile.png'
 import { useSelector } from 'react-redux'
-import axiosImage from '../../instance/imageUpload'
+import { UilScenery, UilPlayCircle, UilLocationPoint, UilSchedule, UilTimes } from '@iconscout/react-unicons'
 import SpinnerIcon from '@rsuite/icons/legacy/Spinner'
 import axios from 'axios'
+
+import ProfileImg from '../../img/defaultProfile.png'
+import axiosImage from '../../instance/imageUpload'
+
 import './PostShare.css'
 
 const PostShare = () => {

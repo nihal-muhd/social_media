@@ -1,17 +1,18 @@
 import React from 'react'
-import './RightSide.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { useCookies } from 'react-cookie'
+import { Link, useNavigate } from 'react-router-dom'
+import { logout } from '../../redux/userSlice'
+
+import FolloweresCard from '../FollowersCard/FolloweresCard'
+
 import Home from '../../img/home.png'
 import Noti from '../../img/noti.png'
 import Message from '../../img/messaage.png'
 import profileNav from '../../img/profileNav.png'
-// import { UilSetting } from '@iconscout/react-unicons'
-// import TrendCard from '../TrendCard/TrendCard'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import FolloweresCard from '../FollowersCard/FolloweresCard'
 import LogoutNav from '../../img/logout.png'
-import { useCookies } from 'react-cookie'
-import { logout } from '../../redux/userSlice'
+
+import './RightSide.css'
 
 const RightSide = () => {
   const { user } = useSelector((state) => state.user)

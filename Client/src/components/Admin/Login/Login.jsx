@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
-import './Login.css'
 import axios from 'axios'
+
+import './Login.css'
 
 const Login = () => {
   const [formData, setFormData] = useState({ adminId: '', password: '' })

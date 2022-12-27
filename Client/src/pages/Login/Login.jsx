@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { userLogin } from '../../redux/userSlice'
 import { useCookies } from 'react-cookie'
+import { userLogin } from '../../redux/userSlice'
+
 import SpinnerIcon from '@rsuite/icons/legacy/Spinner'
+
 import './Login.css'
 
 const Login = () => {
@@ -75,7 +77,7 @@ function LoginForm () {
                 <div>
                     <Link to='/signup' style={{ textDecoration: 'none', color: 'inherit' }}>    <span style={{ fontSize: '12px' }}>Don't have an account?</span> </Link>
                 </div>
-                {loading ? <SpinnerIcon pulse style={{ fontSize: '2em'}} /> : <button className='button infoButton' type='submit'>Login</button>}
+                {loading ? <SpinnerIcon pulse style={{ fontSize: '2em' }} /> : <button className='button infoButton' type='submit'>Login</button>}
 
             </form>
         </div>

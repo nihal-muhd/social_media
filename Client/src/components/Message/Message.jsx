@@ -1,7 +1,9 @@
 import React from 'react'
-import './Message.css'
+
 import profile from '../../img/defaultProfile.png'
 import { format } from 'timeago.js'
+
+import './Message.css'
 
 const Message = ({ message, own }) => {
   return (

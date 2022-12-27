@@ -1,10 +1,11 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import SpinnerIcon from '@rsuite/icons/legacy/Spinner'
+import axios from 'axios'
 
 import Post from '../Post/Post'
-import SpinnerIcon from '@rsuite/icons/legacy/Spinner'
+
 import './Posts.css'
-import { useSelector } from 'react-redux'
 
 const Posts = ({ location }) => {
   const { user } = useSelector((state) => state.user)

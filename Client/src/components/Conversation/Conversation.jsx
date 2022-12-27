@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import './Conversation.css'
-import profile from '../../img/defaultProfile.png'
-
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+
+import profile from '../../img/defaultProfile.png'
+
+import './Conversation.css'
 
 const Conversation = ({ conversation }) => {
   const { user } = useSelector((state) => state.user)

@@ -2,13 +2,13 @@ import React, { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { UilTimes } from '@iconscout/react-unicons'
+import axios from 'axios'
 
 import axiosImage from '../../instance/imageUpload'
-
 import cover from '../../img/cover.jpg'
 import profile from '../../img/defaultProfile.png'
+
 import './ProfileCard.css'
-import axios from 'axios'
 
 const ProfileCard = ({ location }) => {
   const { user } = useSelector((state) => state.user)

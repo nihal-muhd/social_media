@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs'
-import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
+import axios from 'axios'
+
+import { BsFillEyeFill, BsFillEyeSlashFill } from 'react-icons/bs'
+
 import './Signup.css'
 
 const Signup = () => {

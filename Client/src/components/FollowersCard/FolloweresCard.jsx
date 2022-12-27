@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 import profile from '../../img/defaultProfile.png'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
+
 import './FollowersCard.css'
 
 const FolloweresCard = () => {

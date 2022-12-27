@@ -1,4 +1,4 @@
-const io = require('socket.io')(8900, {
+const io = require('socket.io')(process.env.SOCKET_PORT, {
     cors: {
         origin: 'http://localhost:3000'
     }
@@ -7,7 +7,6 @@ const io = require('socket.io')(8900, {
 let users = []
 
 const addUser = (userId, socketId) => {
-    console.log(userId)
     !users.some(user => user.userId === userId)
     users.push({ userId, socketId })
 }
@@ -26,14 +25,12 @@ io.on("connection", (socket) => {
 
     // take userId and socket from user
     socket.on('addUser', userId => {
-        console.log(userId,'user added');
         addUser(userId, socket.id)
         io.emit('getUsers', users)
     })
 
     // send and get message 
     socket.on('sendMessage', ({ senderId, receiverId, text }) => {
-        console.log(senderId,receiverId,text,'send message');
         const user =getUser(receiverId)
         io.to(user?.socketId).emit('getMessage',{
             senderId,

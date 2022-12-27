@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { BsFillPersonFill, BsBellFill, BsSearch } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import { BsFillPersonFill, BsBellFill, BsSearch } from 'react-icons/bs'
+
 import './Navbar.css'
 
 const Navbar = () => {

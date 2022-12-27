@@ -1,12 +1,14 @@
-import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { io } from 'socket.io-client'
+import axios from 'axios'
+
 import Conversation from '../../components/Conversation/Conversation'
 import LogoSearch from '../../components/LogoSearch/LogoSearch'
 import Message from '../../components/Message/Message'
 import RightSide from '../../components/RightSide/RightSide'
+
 import './Messenger.css'
-import { io } from 'socket.io-client'
 
 const Messenger = () => {
   const { user } = useSelector((state) => state.user)

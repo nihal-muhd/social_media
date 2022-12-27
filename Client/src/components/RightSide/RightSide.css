@@ -63,3 +63,24 @@
         justify-content: center;
     }
 }
+@media only screen and (max-width:1203px) {
+    /* .RightSide {
+        position: fixed;
+        bottom: 0;
+       right: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 2rem 2rem 0 0 ;
+    } */
+    /* .navIcons {
+        display: flex;
+    }
+    .navIcons>div {
+        margin: 5px 30px;
+        display: flex;
+        justify-content: center;
+    } */
+    .profileNav{
+        display: block;
+    }
+}

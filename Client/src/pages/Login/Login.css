@@ -1,0 +1,7 @@
+@media only screen and (max-width:670px) {
+    .auth {
+        display: flex;
+        flex-direction: column;
+    }
+
+}

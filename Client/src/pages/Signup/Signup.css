@@ -65,3 +65,11 @@
     justify-content: center;
 
 }
+
+@media only screen and (max-width:670px) {
+    .infoButton {
+        width: 10rem;
+        height: 2rem; 
+        align-self: center;
+    }
+}

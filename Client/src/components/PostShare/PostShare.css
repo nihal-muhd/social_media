@@ -75,8 +75,24 @@
 
  @media only screen and (max-width:630px) {
     .icons-name{
-      
         display: none;
     }
   
 } 
+
+@media only screen and (max-width:456px) {
+    .postOptions{
+        margin-left: -10px;
+    }
+  
+}
+@media only screen and (max-width:389px) {
+    .postOptions{
+        margin-left: -60px;
+    }
+    .PostShare>div>input{
+        padding-right: 0;
+        font-size: 13px;
+    }
+  
+}

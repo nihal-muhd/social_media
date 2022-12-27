@@ -1,4 +1,4 @@
-.head{
+/* .head{
     font-family: 'Grand Hotel', cursive;
     font-size: 4rem;
 }
@@ -11,4 +11,8 @@
     background-color: rgb(155, 155, 155);
     border-radius: 9px;
     
+} */
+.panel{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
 }

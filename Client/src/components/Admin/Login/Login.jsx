@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import './Login.css'
@@ -43,44 +41,29 @@ const Login = () => {
   })
 
   return (
-        <React.Fragment>
-            <div className='signpage'>
-                <div className='container '>
-                    <div className='row d-flex justify-content-center '>
-                        <div className='col-6 mt-5'>
-                            <div>
-                                <h2 className='head text-center '>WeShare</h2>
-                                <h4 className='text-center '>Admin Panel</h4>
-                            </div>
-                            <div className='adminmain'>
-                                <div className='form-part'>
-                                    <Form onSubmit={handleSubmit}>
+    <div className='auth'>
+      <div className="auth-left">
+        <div className='auth-logo admin'>WeShare <br></br> <div className='panel'>Admin Panel</div> </div>
+      </div>
+      <div className="auth-right">
+        <form className='infoForm authform' onSubmit={handleSubmit}>
+          <h3>Admin Login</h3>
 
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label>Username </Form.Label>
-                                            <Form.Control type="text" placeholder=" username" name='adminId' onChange={handleChange} value={adminId} />
-                                        </Form.Group>
+          <div>
+            <input type="text" placeholder='username' className="infoInput" name='adminId' onChange={handleChange} value={adminId} />
 
-                                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                                            <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" placeholder="Password" name='password' onChange={handleChange} value={password} />
-                                        </Form.Group>
-                                        {error && <p style={{ color: 'red' }} className='error-form'>{error}</p>}
+          </div>
+          <div>
+            <input type="password" placeholder='Password' className='infoInput' name='password' onChange={handleChange} value={password} />
 
-                                        <div className="d-grid gap-2">
-                                            <Button className='btn mb-2' variant="secondary" type="submit" size="md">
-                                                Log in
-                                            </Button>
-                                        </div >
-
-                                    </Form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </React.Fragment>
+          </div>
+          {error && <p style={{ color: 'red' }} className='error-form'>{error}</p>}
+          <div>
+          </div>
+           <button className='button infoButton' type='submit'>Login</button>
+        </form>
+      </div>
+    </div>
   )
 }
 
